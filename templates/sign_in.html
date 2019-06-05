@@ -98,8 +98,21 @@
 </style>
 </head>
 <body>
+<form method="post">
+    {% csrf_token %}
+    {% if invalidemail %}
+    <script>alert('please enter correct id')</script>
+    {% endif %}
+    {% if invalidpassword %}
+    <script>alert('please enter correct password')</script>
+    {% endif %}
+    {% if link %}
+    <script>alert('please confirm your email')</script>
+    {% endif %}
+    {% if verify %}
+    <script>alert('please verify your email')</script>
+    {% endif %}
 <div class="login-form">
-    <form action="/examples/actions/confirmation.php" method="post">		
         <div class="text-center social-btn">
             <a href="#" class="btn btn-primary btn-lg btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
             <a href="#" class="btn btn-info btn-lg btn-block"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
@@ -107,7 +120,7 @@
         </div>
 		<div class="or-seperator"><b>or</b></div>
         <div class="form-group">
-        	<input type="text" class="form-control input-lg" name="username" placeholder="Username" required="required">
+        	<input type="email" class="form-control input-lg" name="email" placeholder="Email" required="required">
         </div>
 		<div class="form-group">
             <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required">
