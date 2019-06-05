@@ -42,6 +42,9 @@ class RoleDetails(models.Model):
                                  null=True,
                                  default="")
     active=models.NullBooleanField(default="")
+    last_login=models.CharField(default="",
+                                null=True,
+                                max_length=255)
 
 
 #after this run these commands
