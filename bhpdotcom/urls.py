@@ -17,12 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from bhptale import views
-from django.conf.urls.static import static
 from django.conf import settings
 
 
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^homepage/$', views.homepage),
+    url(r'^sign_in/$',views.sign_in),
+    url(r'^verify/$',views.verify),
+    url(r'^sign_out/$',views.sign_out),
+    url(r'^sign_up/$',views.sign_up),
     url(r'^bhptale/',include('bhptale.urls'))
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+]
