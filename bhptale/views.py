@@ -68,7 +68,7 @@ def sign_in(request):
             elif(act == 1):
                 request.session["email"]=email
                 if(role==3):
-                    return render(request,"user_password_form.html")
+                    return render(request,"admin_panel.html")
     return render(request, "sign_in.html")
 
 def sign_up(request):
