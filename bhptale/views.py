@@ -54,15 +54,22 @@ def homepage(request):
 def index(request):
     return render(request, "adminpanel.html")
 
-"""def sign_in(request):
-    pas=request.POST["password"]
-    data=RoleDetails.objects.get(email=request.POST["email"])
-    passwd=data.password
-    act=data.active
-    if(act == 0):
-
-
-    return render(request, "signin.html")"""
+def sign_in(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        pas=request.POST["password"]
+        data=RoleDetails.objects.get(email=email)
+        passwd=data.password
+        act=data.active
+        role=data.role_id
+        if check_password(pas, passwd):
+            if(act == 0):
+                pass
+            elif(act == 1):
+                request.session["email"]=email
+                if(role==3):
+                    return render(request,"user_password_form.html")
+    return render(request, "sign_in.html")
 
 def sign_up(request):
     if(request.method=="POST"):
@@ -89,5 +96,16 @@ def sign_up(request):
 def testimonial(request):
     return render(request, "about.html")
 
-
-
+def update_password(request):
+    get_email=request.session["email"]
+    data=RoleDetails.objects.get(email=get_email)
+    db_password=data.password
+    if request.method=="POST":
+        old_pass=request.POST["old_password"]
+        new_pass=request.POST["new_password"]
+        confirm_new_pass=request.POST["confirm_new_password"]
+        if old_pass==db_password:
+            if new_pass==confirm_new_pass:
+                update=RoleDetails(email=get_email,password=make_password(confirm_new_pass))
+                update.save(update_fields=["password"])
+    return render(request,"password_change.html")
